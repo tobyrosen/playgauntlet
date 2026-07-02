@@ -1,17 +1,27 @@
-# Run logs
-runs/
+.DS_Store
+.env
+.env.*
+!.env.example
 
-# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
 
-# Virtual environments
+node_modules/
+dist/
+build/
+.astro/
+.next/
+
+.cache/
+tmp/
+*.log
+
+# Repo-specific (preserved from original .gitignore)
+runs/
 .venv/
 venv/
 env/
-
-# Local state / scratch
-*.log
-.DS_Store

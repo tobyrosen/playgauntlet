@@ -1,6 +1,17 @@
 # Gauntlet
 
+[![Release](https://img.shields.io/github/v/release/tobyrosen/playgauntlet?sort=semver&display_name=tag&label=release&style=flat-square)](https://github.com/tobyrosen/playgauntlet/releases/latest) [![CI](https://img.shields.io/github/actions/workflow/status/tobyrosen/playgauntlet/ci.yml?branch=main&label=fleet-ci&style=flat-square)](https://github.com/tobyrosen/playgauntlet/actions/workflows/ci.yml) [![License](https://img.shields.io/github/license/tobyrosen/playgauntlet?label=license&style=flat-square)](LICENSE) [![Type](https://img.shields.io/badge/type-standalone--software-3776ab?style=flat-square)](#) [![Language](https://img.shields.io/github/languages/top/tobyrosen/playgauntlet?style=flat-square)](https://github.com/tobyrosen/playgauntlet)
+
 A gamified daily retrieval-practice study app. The exam is the final boss. Each correct recall chips its health down.
+
+## Identity
+
+| Field | Value |
+|---|---|
+| What | A Python stdlib HTTP service, single-page `index.html` app, and JSON item bank for Daily Boss Run retrieval practice. |
+| For | Learners drilling certification or exam material with spaced recall, explain-back grading, and a local-first mobile UI. |
+| Type | standalone-software |
+| Status | experimental |
 
 ## The Daily Boss Run
 
@@ -94,3 +105,27 @@ The UI is designed for mobile-first use. Run `app.py` on a always-on machine (Ma
 ## Runs log
 
 Each completed run is appended as a JSON line to `runs/YYYY-MM-DD.jsonl`. The `runs/` directory is excluded from git (see `.gitignore`).
+
+## Project Notes
+
+Maintainer and agent context lives in [AGENTS.md](AGENTS.md).
+
+Design decisions are recorded in [docs/decisions](docs/decisions).
+
+## Versioning and Releases
+
+This repo uses Semantic Versioning, Conventional Commits, and release-please Release PRs.
+
+The latest released version is shown in the release badge at the top of this README. The badge updates automatically from GitHub Releases after a Release PR is approved and merged.
+
+Release tags use the format `vX.Y.Z`.
+
+## Contributing
+
+Use Conventional Commits for commit messages and PR titles.
+
+Do not create release tags manually. Do not edit `CHANGELOG.md` manually for ordinary releases.
+
+## License
+
+This project is licensed under the terms in [LICENSE](LICENSE).
