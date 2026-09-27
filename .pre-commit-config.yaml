@@ -1,11 +1,5 @@
-# Cowork polyglot pre-commit config
-# Source of truth: ~/Cowork/Cowork-Assets/dev-foundations-templates/pre-commit-config.yaml
-# Propagated by: propagate.py
-# Updated: 2026-05-22 (v2 — polyglot rebuild after fleet survey)
-#
-# All hooks gate on file types — a Python-only repo won't run JS hooks because
-# no JS files are staged, and vice versa. This is the single root config for
-# every Cowork coding repo.
+# Pre-commit hooks for this repository.
+# Hooks run only for matching file types in the staged changes.
 
 default_install_hook_types: [pre-commit, commit-msg]
 fail_fast: false
@@ -94,7 +88,7 @@ repos:
 
   # ESLint via locally-installed npx eslint (no auto-install — fail loud if missing).
   # Repos with JS/TS code need: npm install --save-dev eslint typescript-eslint eslint-config-prettier
-  # And an eslint.config.mjs (the propagation script copies a shared base into JS repos).
+  # Also provide an eslint.config.mjs for the project.
   - repo: local
     hooks:
       - id: eslint

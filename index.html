@@ -290,9 +290,13 @@ function renderItem(){
   document.getElementById("hudReadPct").textContent=Math.round(rd0)+"%";
   const stage=document.getElementById("stage");
   const domName=(EXAM.domains.find(d=>d.id===it.domain)||{}).name||it.domain;
+  let shuffledAnsIdx=it.answer_index;
   let ctrl="";
   if(it.format==="mcq"||it.format==="spot"){
-    ctrl=`<div class="controls">`+it.choices.map((c,i)=>
+    const perm=fisherYates(it.choices.length);
+    const sChoices=perm.map(j=>it.choices[j]);
+    shuffledAnsIdx=perm.indexOf(it.answer_index);
+    ctrl=`<div class="controls">`+sChoices.map((c,i)=>
       `<button class="choice" data-i="${i}">${esc(c)}</button>`).join("")+`</div>`;
   }else if(it.format==="recall"){
     ctrl=`<div class="controls"><input class="recall-in" id="recallIn" autocomplete="off" autocorrect="off"
@@ -309,7 +313,7 @@ function renderItem(){
   stage.scrollTop=0;
   // wire controls
   if(it.format==="mcq"||it.format==="spot"){
-    stage.querySelectorAll(".choice").forEach(b=>b.onclick=()=>chooseMCQ(+b.dataset.i,it));
+    stage.querySelectorAll(".choice").forEach(b=>b.onclick=()=>chooseMCQ(+b.dataset.i,it,shuffledAnsIdx));
   }else if(it.format==="recall"){
     const go=()=>submitRecall(it);
     document.getElementById("recallGo").onclick=go;
@@ -350,12 +354,12 @@ function onTimeout(it){
   grade(it,false,{timeout:true});
 }
 
-function chooseMCQ(i,it){
+function chooseMCQ(i,it,shuffledAnsIdx){
   if(answered)return;answered=true;clearTimer();
-  const correct=(i===it.answer_index);
+  const correct=(i===shuffledAnsIdx);
   const btns=document.querySelectorAll(".choice");
   btns.forEach((b,bi)=>{b.disabled=true;
-    if(bi===it.answer_index)b.classList.add("correct");
+    if(bi===shuffledAnsIdx)b.classList.add("correct");
     else if(bi===i)b.classList.add("wrong");
     else b.classList.add("dim");});
   grade(it,correct,{});
@@ -530,6 +534,7 @@ function endRun(){
 
 /* ============================ glue ============================ */
 function esc(s){return (s==null?"":String(s)).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
+function fisherYates(n){const a=Array.from({length:n},(_,i)=>i);for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function show(name){["start","run","payoff"].forEach(n=>document.getElementById("screen-"+n).hidden=(n!==name));}
 
 function paintStart(){
