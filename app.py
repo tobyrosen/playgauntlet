@@ -193,10 +193,14 @@ class Handler(BaseHTTPRequestHandler):
 INDEX_HTML = INDEX_PATH.read_text() if INDEX_PATH.exists() else "<h1>index.html missing</h1>"
 
 
-if __name__ == "__main__":
+def main() -> None:
     items = load_items()
     print(f"[gauntlet] {len(items['items'])} items across {len(items['exam']['domains'])} domains; "
           f"grader={GRADER_MODEL}; token={'on' if TOKEN else 'off'}", file=sys.stderr)
     srv = ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
     print(f"[gauntlet] serving on 0.0.0.0:{PORT}", file=sys.stderr)
     srv.serve_forever()
+
+
+if __name__ == "__main__":
+    main()
